@@ -48,7 +48,20 @@ class FrenchNumbersToWords
         }
     }
     // The units that we use depending on digits count in the number
-    groups = ['', 'mille']
+    groups = [
+        {
+            single: '',
+            plural: ''
+        },
+        {
+            single: 'mille',
+            plural: 'milles'
+        },
+        {
+            single: 'million',
+            plural: 'millions'
+        }
+    ]
 
     // We need the number and to define which version of French we are using
     constructor(number = 0, french = 'fr') {
@@ -188,15 +201,15 @@ class FrenchNumbersToWords
      */
     getGroupNameByIndex(groupIndex) {
         // assume we have a number that is larger than 1 and has unit 
-        let suffix = 's'
+        let suffix = 'plural'
         if (parseInt(this.numberParts) == 1 ) {
             // remove the unit if it is 1
-            suffix = ''
+            suffix = 'single'
         } else {
             // remove the unit if the unit is not the last word (other groups has a value greater than 0)
             for (let x = groupIndex + 1; x < this.numberParts.length; x++) {
                 if (parseInt(this.numberParts[x]) > 0) {
-                    suffix = ''
+                    suffix = 'single'
                 }
             }
         }
@@ -204,10 +217,7 @@ class FrenchNumbersToWords
         get the proper unit, switch the order of array because units are ordered in ASC 
         but we are converting the number groups in DESC order
         */
-        let g = this.groups[this.numberParts.length - (groupIndex + 1)]
-        if (g) {
-            g += suffix
-        }
+        let g = this.groups[this.numberParts.length - (groupIndex + 1)][suffix]
         return g
     }
 }
