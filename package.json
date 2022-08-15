@@ -1,6 +1,6 @@
 {
   "name": "french-numbers-to-words",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Convert French numbers to their written form",
   "main": "index.js",
   "scripts": {
