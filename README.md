@@ -72,3 +72,63 @@ When "cent" or "mille" is not ending the word, then it is not plural:
   - 2045 = 2 * 1000 + 45 = "deux-mille-quarante-cinq" 
   - 200000 = 2 * 100 * 1000 = "deux-cent-milles", without S at "cents", but with S at "milles"
   - 180000 = (100 + 4 * 20) * 1000 = "cent-quatre-vingt-milles", without S at "vingt", but with S at "milles"
+
+#### **Examples**
+- 0:  zéro
+- 1:  un
+- 5:  cinq
+- 10:  dix
+- 11:  onze
+- 15:  quinze
+- 17:  dix-sept
+- 20:  vingt
+- 21:  vingt-et-un
+- 30:  trente
+- 35:  trente-cinq
+- 50:  cinquante
+- 51:  cinquante-et-un
+- 68:  soixante-huit
+- 70:  soixante-dix
+- 71:  soixante-et-onze
+- 74:  soixante-quatorze
+- 75:  soixante-quinze
+- 77:  soixante-dix-sept
+- 80:  quatre-vingts
+- 81:  quatre-vingt-un
+- 82:  quatre-vingt-deux
+- 91:  quatre-vingt-onze
+- 99:  quatre-vingt-dix-neuf
+- 100:  cent
+- 101:  cent-et-un
+- 105:  cent-cinq
+- 111:  cent-onze
+- 123:  cent-vingt-trois
+- 130:  cent-trente
+- 168:  cent-soixante-huit
+- 171:  cent-soixante-et-onze
+- 175:  cent-soixante-quinze
+- 199:  cent-quatre-vingt-dix-neuf
+- 200:  deux-cents
+- 201:  deux-cent-et-un
+- 555:  cinq-cent-cinquante-cinq
+- 999:  neuf-cent-quatre-vingt-dix-neuf
+- 1000:  mille 
+- 1001:  mille-et-un
+- 1111:  mille cent-onze
+- 1199:  mille cent-quatre-vingt-dix-neuf
+- 1234:  mille deux-cent-trente-quatre
+- 1999:  mille neuf-cent-quatre-vingt-dix-neuf
+- 2000:  deux-milles 
+- 2001:  deux-mille-et-un
+- 2020:  deux-mille vingt
+- 2021:  deux-mille vingt-et-un
+- 2345:  deux-mille trois-cent-quarante-cinq
+- 3000:  trois-milles 
+- 9999:  neuf-mille neuf-cent-quatre-vingt-dix-neuf
+- 10000:  dix-milles 
+- 11111:  onze-mille cent-onze
+- 12345:  douze-mille trois-cent-quarante-cinq
+- 123456:  cent-vingt-trois-mille quatre-cent-cinquante-six
+- 200000:  deux-cent-milles 
+- 654321:  six-cent-cinquante-quatre-mille trois-cent-vingt-et-un
+- 999999:  neuf-cent-quatre-vingt-dix-neuf-mille neuf-cent-quatre-vingt-dix-neuf
