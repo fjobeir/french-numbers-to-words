@@ -3,6 +3,12 @@
 
 This package converts numbers to their written forms in French language
 
+### Installation
+
+```bash
+  npm install french-numbers-to-words
+```
+
 ### Rules
 
 #### **The units**
