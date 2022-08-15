@@ -1,5 +1,5 @@
 
-# Numbers to words converter (French)
+# French numbers to words converter
 
 This package converts numbers to their written forms in French language
 
