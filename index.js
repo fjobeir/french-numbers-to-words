@@ -3,7 +3,10 @@ class FrenchNumbersToWords
     french = 'fr'
     number = 0
     numberParts = []
-    numberAsWord = ''
+    result = {
+        parts: [],
+        fullText: ''
+    }
     units = {
         0: "zéro",
         1: "un",
@@ -78,15 +81,34 @@ class FrenchNumbersToWords
             // if the number if higher than 16 we split it to groups
             // each group has three digits. Ex: 12345 will have two groups: 12 (for thousands) and 345
             this.numberParts = this.number.toLocaleString().split(',')
-            let finalResult = ''
             // loop over those groups
+
+            let n, full
             for (let j = 0; j < this.numberParts.length; j++) {
-                finalResult += this.hundred(parseInt(this.numberParts[j]), j)
+                n = parseInt(this.numberParts[j])
+                full = {
+                    number: n,
+                    text: this.hundred(n, j),
+                    unit: this.getGroupNameByIndex(j)
+                }
+                this.result.parts.push(full)
             }
-            return finalResult
+            this.result.fullText = this.generateFullText()
+            return this.result
         }
     }
 
+    generateFullText() {
+        let res = []
+        for (var i = 0; i < this.result.parts.length; i++) {
+            let txt = this.result.parts[i].text
+            if (this.result.parts[i].unit) {
+                txt += '-' + this.result.parts[i].unit
+            }
+            res.push(txt)
+        }
+        return res.join(' ')
+    }
     
     /**
      * Due to the rules of French language, we convert the hundreds part and the tens part seperately
@@ -150,6 +172,9 @@ class FrenchNumbersToWords
         const group = this.getGroupNameByIndex(groupIndex)
 
 
+        /**
+         * 
+        
         if ((num == 1)) {
             // if the number is one, just return its unit (in case it has)
             if (groupIndex != (this.numberParts.length - 1) ) {
@@ -159,6 +184,8 @@ class FrenchNumbersToWords
                 return '-et-un'
             }
         }
+         * 
+         */
         
         if (hundreds == 0) {
             // ex: we are converting the 12 in 12345
@@ -169,6 +196,8 @@ class FrenchNumbersToWords
             result = 'cent'
             if (hundreds > 1) {
                 result = this.twoDigitsConverter(hundreds) + '-' + result
+                /**
+                 * 
                 // in case the hundreds are larger than 1 with no rest and no group unit, ex: 300
                 if (rest == 0) {
                     if (!group) {
@@ -176,6 +205,8 @@ class FrenchNumbersToWords
                         result += 's'
                     }
                 }
+                * 
+                */
             }
             // get the rest (in case we have it)
             const restAsWord = this.twoDigitsConverter(rest)
@@ -186,12 +217,18 @@ class FrenchNumbersToWords
                 result += '-' + restAsWord
             }
         }
+        /**
+         * 
+         
         if (group) {
             result += '-' + group
         }
-        if (groupIndex > 0) {
-            result = ' ' + result
-        }
+        * 
+         */
+
+        // if (groupIndex > 0) {
+        //     result = ' ' + result
+        // }
         return result
     }
     /**
@@ -222,9 +259,9 @@ class FrenchNumbersToWords
     }
 }
 // usage
-// const numbers = [0, 1, 5, 10, 11, 15, 17, 20, 21, 30, 35, 50, 51, 68, 70, 71, 74, 75, 77, 80, 81, 82, 91, 99, 100, 101, 105, 111, 123, 130, 168, 171, 175, 199, 200, 201, 555, 999, 1000, 1001, 1111, 1199, 1234, 1999, 2000, 2001, 2020, 2021, 2345, 3000, 9999, 10000, 11111, 12345, 123456, 200000, 654321, 999999, 99999999]
-// for (let i = 0; i < numbers.length; i++) {
-//     console.log(numbers[i] + ': ', new FrenchNumbersToWords(numbers[i], 'fr').numberAsWord)
-// }
+const numbers = [0, 1, 5, 10, 11, 15, 17, 20, 21, 30, 35, 50, 51, 68, 70, 71, 74, 75, 77, 80, 81, 82, 91, 99, 100, 101, 105, 111, 123, 130, 168, 171, 175, 199, 200, 201, 555, 999, 1000, 1001, 1111, 1199, 1234, 1999, 2000, 2001, 2020, 2021, 2345, 3000, 9999, 10000, 11111, 12345, 123456, 200000, 654321, 999999, 99999999]
+for (let i = 0; i < numbers.length; i++) {
+    console.log(numbers[i] + ': ', new FrenchNumbersToWords(numbers[i], 'fr').result)
+}
 
 module.exports = FrenchNumbersToWords
