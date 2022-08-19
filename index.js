@@ -68,9 +68,11 @@ class FrenchNumbersToWords
 
     // We need the number and to define which version of French we are using
     constructor(number = 0, french = 'fr') {
-        this.french = french
-        this.number = parseInt(number)
-        this.numberAsWord = this.splitNumberPerLength()
+        if (Object.keys(this.tens).indexOf(french) > -1) {
+            this.french = french
+            this.number = parseInt(number)
+            this.numberAsWord = this.splitNumberPerLength()
+        }
     }
 
     splitNumberPerLength() {
@@ -81,14 +83,12 @@ class FrenchNumbersToWords
             // if the number if higher than 16 we split it to groups
             // each group has three digits. Ex: 12345 will have two groups: 12 (for thousands) and 345
             this.numberParts = this.number.toLocaleString().split(',')
-            // loop over those groups
-
             let n, full
             for (let j = 0; j < this.numberParts.length; j++) {
                 n = parseInt(this.numberParts[j])
                 full = {
                     number: n,
-                    text: this.hundred(n, j),
+                    text: this.hundred(n),
                     unit: this.getGroupNameByIndex(j)
                 }
                 this.result.parts.push(full)
@@ -158,35 +158,15 @@ class FrenchNumbersToWords
     /**
      * Due to the rules of French language, we convert the hundreds part and the tens part seperately
      * @param  {[number]} n the number we want to convert to a word
-     * @param  {[number]} groupIndex which group are we converting so we know the unit (nothing, mille, million etc)
      * @return {[string]}    number being converted to a word
      */
-    hundred(n = null, groupIndex) {
+    hundred(n = null) {
         let result = ''
         const num = n != null ? n : this.number
         // calculate how many hundreds do we have in this number
         const hundreds = Math.floor(num / 100)
         // calculate the tens part of the number
         const rest = num % 100
-        // get the group unit name
-        const group = this.getGroupNameByIndex(groupIndex)
-
-
-        /**
-         * 
-        
-        if ((num == 1)) {
-            // if the number is one, just return its unit (in case it has)
-            if (groupIndex != (this.numberParts.length - 1) ) {
-                return group
-            } else {
-                // if number is one and it is the in the last group, it will be added to the other groups with "et"
-                return '-et-un'
-            }
-        }
-         * 
-         */
-        
         if (hundreds == 0) {
             // ex: we are converting the 12 in 12345
             // no need to worry about the cent unit, just convert the 12
@@ -196,18 +176,8 @@ class FrenchNumbersToWords
             result = 'cent'
             if (hundreds > 1) {
                 result = this.twoDigitsConverter(hundreds) + '-' + result
-                /**
-                 * 
-                // in case the hundreds are larger than 1 with no rest and no group unit, ex: 300
-                if (rest == 0) {
-                    if (!group) {
-                        // in case we do not have a unit, add s to the cent (ex: in 200000)
-                        result += 's'
-                    }
-                }
-                * 
-                */
             }
+
             // get the rest (in case we have it)
             const restAsWord = this.twoDigitsConverter(rest)
             if (restAsWord) {
@@ -217,18 +187,6 @@ class FrenchNumbersToWords
                 result += '-' + restAsWord
             }
         }
-        /**
-         * 
-         
-        if (group) {
-            result += '-' + group
-        }
-        * 
-         */
-
-        // if (groupIndex > 0) {
-        //     result = ' ' + result
-        // }
         return result
     }
     /**
@@ -258,6 +216,8 @@ class FrenchNumbersToWords
         return g
     }
 }
+
+
 // usage
 const numbers = [0, 1, 5, 10, 11, 15, 17, 20, 21, 30, 35, 50, 51, 68, 70, 71, 74, 75, 77, 80, 81, 82, 91, 99, 100, 101, 105, 111, 123, 130, 168, 171, 175, 199, 200, 201, 555, 999, 1000, 1001, 1111, 1199, 1234, 1999, 2000, 2001, 2020, 2021, 2345, 3000, 9999, 10000, 11111, 12345, 123456, 200000, 654321, 999999, 99999999]
 for (let i = 0; i < numbers.length; i++) {
