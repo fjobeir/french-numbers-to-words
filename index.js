@@ -68,7 +68,7 @@ class FrenchNumbersToWords
 
     // We need the number and to define which version of French we are using
     constructor(number = 0, french = 'fr') {
-        if (Object.keys(this.tens).indexOf(french) > -1) {
+        if (Object.keys(this.tens).indexOf(french) > -1 || true) {
             this.french = french
             this.number = parseInt(number)
             this.numberAsWord = this.splitNumberPerLength()
@@ -76,26 +76,21 @@ class FrenchNumbersToWords
     }
 
     splitNumberPerLength() {
-        if (this.units[this.number]) {
-            // in case we find the number in units (applies to numbers from 0 to 16) we immediately return it
-            return this.units[this.number]
-        } else {
-            // if the number if higher than 16 we split it to groups
-            // each group has three digits. Ex: 12345 will have two groups: 12 (for thousands) and 345
-            this.numberParts = this.number.toLocaleString().split(',')
-            let n, full
-            for (let j = 0; j < this.numberParts.length; j++) {
-                n = parseInt(this.numberParts[j])
-                full = {
-                    number: n,
-                    text: this.hundred(n),
-                    unit: this.getGroupNameByIndex(j)
-                }
-                this.result.parts.push(full)
+        // we will split the number to groups
+        // each group has three digits. Ex: 12345 will have two groups: 12 (for thousands) and 345
+        this.numberParts = this.number.toLocaleString().split(',')
+        let n, full
+        for (let j = 0; j < this.numberParts.length; j++) {
+            n = parseInt(this.numberParts[j])
+            full = {
+                number: n,
+                text: this.hundred(n),
+                unit: this.getGroupNameByIndex(j)
             }
-            this.result.fullText = this.generateFullText()
-            return this.result
+            this.result.parts.push(full)
         }
+        this.result.fullText = this.generateFullText()
+        return this.result
     }
 
     generateFullText() {
@@ -118,11 +113,10 @@ class FrenchNumbersToWords
     twoDigitsConverter(n = null) {
         const num = (n != null) ? n : this.number
         let result = ''
-        // return nothing in case the value is zero
-        if (num == 0) {
+        if (num == '' && typeof num != 'number') {
             return ''
         }
-        if (num % 10 === 0) {
+        if (num % 10 === 0 && num > 0) {
             // check in tens
             result = this.tens[this.french][num]
             // apply the plural format to 80
@@ -219,7 +213,7 @@ class FrenchNumbersToWords
 
 
 // usage
-const numbers = [0, 1, 5, 10, 11, 15, 17, 20, 21, 30, 35, 50, 51, 68, 70, 71, 74, 75, 77, 80, 81, 82, 91, 99, 100, 101, 105, 111, 123, 130, 168, 171, 175, 199, 200, 201, 555, 999, 1000, 1001, 1111, 1199, 1234, 1999, 2000, 2001, 2020, 2021, 2345, 3000, 9999, 10000, 11111, 12345, 123456, 200000, 654321, 999999, 99999999]
+const numbers = [0, 1, 5, 10, 11, 15, 17, 20, 21, 30, 35, 50, 51, 68, 70, 71, 74, 75, 77, 80, 81, 82, 91, 99, 100, 101, 105, 111, 123, 130, 168, 171, 175, 199, 200, 201, 555, 999, 1000, 1001, 1111, 1199, 1234, 1999, 2000, 2001, 2020, 2021, 2345, 3000, 9999, 10000, 11111, 12345, 123456, 200000, 654321, 999999, 99999999] //
 for (let i = 0; i < numbers.length; i++) {
     console.log(numbers[i] + ': ', new FrenchNumbersToWords(numbers[i], 'fr').result)
 }
