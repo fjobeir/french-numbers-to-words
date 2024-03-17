@@ -68,7 +68,7 @@ class FrenchNumbersToWords
 
     // We need the number and to define which version of French we are using
     constructor(number = 0, french = 'fr') {
-        if (Object.keys(this.tens).indexOf(french) > -1 || true) {
+        if (Object.keys(this.tens).indexOf(french) > -1) {
             this.french = french
             this.number = parseInt(number)
             this.numberAsWord = this.splitNumberPerLength()
