@@ -173,12 +173,14 @@ class FrenchNumbersToWords
             }
 
             // get the rest (in case we have it)
-            const restAsWord = this.twoDigitsConverter(rest)
-            if (restAsWord) {
-                if (rest == 1) {
-                    result += '-et'
+            if (rest > 0) {
+                const restAsWord = this.twoDigitsConverter(rest)
+                if (restAsWord) {
+                    if (rest == 1) {
+                        result += '-et'
+                    }
+                    result += '-' + restAsWord
                 }
-                result += '-' + restAsWord
             }
         }
         return result
