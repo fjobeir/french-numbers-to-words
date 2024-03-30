@@ -58,7 +58,7 @@ class FrenchNumbersToWords
         },
         {
             single: 'mille',
-            plural: 'milles'
+            plural: 'mille'
         },
         {
             single: 'million',
