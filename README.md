@@ -77,22 +77,23 @@ For some unknown reasons, 71 use an "-et-", 81 and 91 use a dash.
 #### **100 and more**
 
 One hundred is "cent". 
-One thousand is "mille". 
+One thousand is "mille".
+
 The rule is joining this and the rest with a dash:
 - 130 = 100 + 30 = "cent-trente"
-- 1110 = 1000 + 1000 + 10 = "mille-cent-dix"
+- 1110 = 1000 + 100 + 10 = "mille-cent-dix"
 
-#### **plurals of "cent" and "mille:**
-Like 80, 100 and 1000 can be plural if it ends a word and then takes an S: "cents", "milles"
+#### **plurals of "cent" and "mille":**
+When multiplied, "cent" takes the plural mark, 's', but loses it when followed by another numeral adjective.
+However, the numeral adjective 'mille' is invariable, so it never takes the plural mark 's'.
+
   - 200 = 2 * 100 = "deux-cents"
-  - 3 000 = 3 * 1000 = "trois-milles"
-
-When "cent" or "mille" is not ending the word, then it is not plural:
   - 252 = 2 * 100 + 52 = "deux-cent-cinquante-deux"
-  - 2045 = 2 * 1000 + 45 = "deux-mille-quarante-cinq" 
-  - 200000 = 2 * 100 * 1000 = "deux-cent-milles", without S at "cents", but with S at "milles"
-  - 180000 = (100 + 4 * 20) * 1000 = "cent-quatre-vingt-milles", without S at "vingt", but with S at "milles"
-
+  - 2045 = 2 * 1000 + 45 = "deux-mille-quarante-cinq"
+  - 3 000 = 3 * 1000 = "trois-mille"
+  - 200 000 = 2 * 100 * 1000 = "deux-cent-mille", without a 's' in "cents"
+  - 180 000 = (100 + 4 * 20) * 1000 = "cent-quatre-vingt-mille", without a 's' in "vingt"
+    
 #### **Examples**
 - 0:  zéro
 - 1:  un
@@ -138,17 +139,17 @@ When "cent" or "mille" is not ending the word, then it is not plural:
 - 1199:  mille cent-quatre-vingt-dix-neuf
 - 1234:  mille deux-cent-trente-quatre
 - 1999:  mille neuf-cent-quatre-vingt-dix-neuf
-- 2000:  deux-milles 
+- 2000:  deux-mille 
 - 2001:  deux-mille-et-un
 - 2020:  deux-mille vingt
 - 2021:  deux-mille vingt-et-un
 - 2345:  deux-mille trois-cent-quarante-cinq
-- 3000:  trois-milles 
+- 3000:  trois-mille 
 - 9999:  neuf-mille neuf-cent-quatre-vingt-dix-neuf
-- 10000:  dix-milles 
+- 10000:  dix-mille 
 - 11111:  onze-mille cent-onze
 - 12345:  douze-mille trois-cent-quarante-cinq
 - 123456:  cent-vingt-trois-mille quatre-cent-cinquante-six
-- 200000:  deux-cent-milles 
+- 200000:  deux-cent-mille 
 - 654321:  six-cent-cinquante-quatre-mille trois-cent-vingt-et-un
 - 999999:  neuf-cent-quatre-vingt-dix-neuf-mille neuf-cent-quatre-vingt-dix-neuf
