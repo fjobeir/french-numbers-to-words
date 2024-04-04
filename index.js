@@ -81,10 +81,11 @@ class FrenchNumbersToWords
         this.numberParts = this.number.toLocaleString().split(',')
         let n, full
         for (let j = 0; j < this.numberParts.length; j++) {
+            
             n = parseInt(this.numberParts[j])
             full = {
                 number: n,
-                text: this.hundred(n),
+                text: n > 1 ? this.hundred(n) : '',
                 unit: this.getGroupNameByIndex(j)
             }
             this.result.parts.push(full)
@@ -98,9 +99,14 @@ class FrenchNumbersToWords
         for (var i = 0; i < this.result.parts.length; i++) {
             let txt = this.result.parts[i].text
             if (this.result.parts[i].unit) {
-                txt += '-' + this.result.parts[i].unit
+                if (txt.length) {
+                    txt += '-'
+                }
+                txt += this.result.parts[i].unit
             }
-            res.push(txt)
+            if (txt.length) {
+                res.push(txt)
+            }
         }
         return res.join(' ')
     }
