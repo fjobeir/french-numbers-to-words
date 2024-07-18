@@ -1,16 +1,17 @@
 {
   "name": "french-numbers-to-words",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Convert French numbers to their written form",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fjobeir/french-numbers-to-words.git"
   },
   "keywords": [
+    "french",
     "numbers",
     "words",
     "converter"
@@ -20,5 +21,12 @@
   "bugs": {
     "url": "https://github.com/fjobeir/french-numbers-to-words/issues"
   },
-  "homepage": "https://github.com/fjobeir/french-numbers-to-words#readme"
+  "homepage": "https://github.com/fjobeir/french-numbers-to-words#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.2",
+    "typescript": "^5.5.3"
+  }
 }
