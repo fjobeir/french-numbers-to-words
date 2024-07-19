@@ -8,14 +8,16 @@ type ResultPart = {
   unit: string;
 };
 
+type FinalResult = {
+  parts: Array<ResultPart>;
+  fullText: string;
+};
+
 class FrenchNumbersToWords {
   french: FrenchLanguage = "fr";
   number: number = 0;
   numberParts: Array<number> = [];
-  result: {
-    parts: Array<ResultPart>;
-    fullText: string;
-  } = {
+  result: FinalResult = {
     parts: [],
     fullText: "",
   };
@@ -94,19 +96,38 @@ class FrenchNumbersToWords {
     this.french = french;
   }
 
-  convert(number: number) {
+  convert(number: number): FinalResult {
     if (typeof number !== "number") {
       throw new Error("Please provide a valid number");
     }
-    this.number = Math.floor(number);
-    this.splitNumberPerLength();
-    if (number < 0) {
-      this.result.fullText = "moins " + this.result.fullText;
+    const numbers = number.toString().split(".").map(Number);
+    if (numbers.length === 2) {
+      console.log(numbers);
     }
-    if (number === 1000000) {
-      console.log(this.result);
+    const result = numbers
+      .map((n) => {
+        this.number = n;
+        this.splitNumberPerLength();
+        if (number < 0) {
+          this.result.fullText = "moins " + this.result.fullText;
+        }
+        return { ...this.result };
+      })
+      .filter(Boolean);
+
+    if (result.length === 1) {
+      return result[0] as FinalResult;
+    } else if (result.length === 2) {
+      return {
+        parts: [
+          ...(result[0]?.parts ?? []),
+          [{ number: undefined, text: "virgule", unit: "" }],
+          ...(result[1]?.parts ?? []),
+        ].flat() as Array<ResultPart>,
+        fullText: result.map((r: any) => r.fullText).join(" virgule "),
+      };
     }
-    return this.result;
+    throw new Error("Faile to perform conversion");
   }
 
   splitNumberPerLength() {
@@ -123,9 +144,6 @@ class FrenchNumbersToWords {
         unit: this.getGroupNameByIndex(j),
       };
       this.result.parts.push(full);
-    }
-    if (this.number === 1000000) {
-      console.log(this.result.parts);
     }
     this.result.fullText = this.generateFullText();
     return this.result;
