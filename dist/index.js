@@ -38,7 +38,7 @@ class FrenchNumbersToWords {
                 50: "cinquante",
                 60: "soixante",
                 70: "septante",
-                80: "huitante",
+                80: "quatre-vingt",
                 90: "nonante",
             },
             fr: {
@@ -67,15 +67,29 @@ class FrenchNumbersToWords {
                 single: "million",
                 plural: "millions",
             },
+            {
+                single: "milliard",
+                plural: "milliards",
+            },
         ];
         this.french = french;
     }
     convert(number) {
+        if (typeof number !== "number") {
+            throw new Error("Please provide a valid number");
+        }
         this.number = Math.floor(number);
         this.splitNumberPerLength();
+        if (number < 0) {
+            this.result.fullText = "moins " + this.result.fullText;
+        }
+        if (number === 1000000) {
+            console.log(this.result);
+        }
         return this.result;
     }
     splitNumberPerLength() {
+        this.result.parts = [];
         // we will split the number to groups
         // each group has three digits. Ex: 12345 will have two groups: 12 (for thousands) and 345
         this.numberParts = this.number.toLocaleString().split(",").map(Number);
@@ -84,29 +98,34 @@ class FrenchNumbersToWords {
             n = this.numberParts[j];
             full = {
                 number: n,
-                text: n > 1 ? this.hundredsConverter(n) : "",
+                text: this.hundredsConverter(n),
                 unit: this.getGroupNameByIndex(j),
             };
             this.result.parts.push(full);
+        }
+        if (this.number === 1000000) {
+            console.log(this.result.parts);
         }
         this.result.fullText = this.generateFullText();
         return this.result;
     }
     generateFullText() {
-        let res = [];
-        for (var i = 0; i < this.result.parts.length; i++) {
-            let txt = this.result.parts[i].text;
-            if (this.result.parts[i].unit) {
-                if (txt.length) {
-                    txt += "-";
-                }
-                txt += this.result.parts[i].unit;
+        return this.result.parts
+            .map((part) => {
+            let txt = [];
+            if ((part.number === 0 && this.result.parts.length === 1) ||
+                ((part.unit === "" || part.number > 1) && part.number > 0) ||
+                (part.number > 0 && part.unit !== "mille" && part.unit)) {
+                txt.push(part.text);
             }
-            if (txt.length) {
-                res.push(txt);
+            if (part.unit && part.number > 0) {
+                txt.push(part.unit);
             }
-        }
-        return res.join(" ");
+            return txt.length ? txt.join("-") : null;
+        })
+            .filter(Boolean)
+            .join("-")
+            .trim();
     }
     /**
      * Due to the rules of French language, we convert the hundreds part and the tens part seperately
@@ -142,13 +161,15 @@ class FrenchNumbersToWords {
         }
         else if (numberParts[0] == 7 || numberParts[0] == 9) {
             // in case of 70 and 90, we make a shift by -10 to the tens rank and shift of +10 to unit rank
+            // but only if the French type is "fr"
             result =
-                this.tens[this.french][parseInt(`${numberParts[0] - 1}0`, 10)] + "-";
-            if (numberParts[0] == 7 && numberParts[1] == 1) {
+                this.tens[this.french][parseInt(`${numberParts[0] - (this.french === "fr" ? 1 : 0)}0`, 10)] + "-";
+            if ((numberParts[0] == 7 || this.french === "be") &&
+                numberParts[1] == 1) {
                 // 71
                 result += "et-";
             }
-            result += this.tensConverter(numberParts[1] + 10);
+            result += this.tensConverter(numberParts[1] + (this.french === "fr" ? 10 : 0));
         }
         return result;
     }
@@ -173,15 +194,16 @@ class FrenchNumbersToWords {
             // here, we are converting a group of 3 digits
             result = "cent";
             if (hundreds > 1) {
-                result = this.tensConverter(hundreds) + "-" + result;
+                result =
+                    this.tensConverter(hundreds) + "-" + result + (rest > 0 ? "" : "s");
             }
             // get the rest (in case we have it)
             if (rest > 0) {
                 const restAsWord = this.tensConverter(rest);
                 if (restAsWord) {
-                    if (rest == 1) {
-                        result += "-et";
-                    }
+                    // if (rest == 1) {
+                    //   result += "-et";
+                    // }
                     result += "-" + restAsWord;
                 }
             }
@@ -196,16 +218,19 @@ class FrenchNumbersToWords {
     getGroupNameByIndex(groupIndex) {
         // assume we have a number that is larger than 1 and has unit
         let suffix = "plural";
+        const actualIndex = (this.numberParts.length - (groupIndex + 1));
         // parseInt(this.numberParts) == 1 WTF is this condition?
-        if (this.numberParts.length == 1) {
+        if (this.numberParts[groupIndex] === 1) {
             // remove the unit if it is 1
             suffix = "single";
         }
         else {
-            // remove the unit if the unit is not the last word (other groups has a value greater than 0)
-            for (let x = groupIndex + 1; x < this.numberParts.length; x++) {
-                if (this.numberParts[x] > 0) {
-                    suffix = "single";
+            // only for thousands, remove the unit if the unit is not the last word (other groups has a value greater than 0)
+            if (this.groups[actualIndex]["single"] === "mille") {
+                for (let x = groupIndex + 1; x < this.numberParts.length; x++) {
+                    if (this.numberParts[x] > 0) {
+                        suffix = "single";
+                    }
                 }
             }
         }
@@ -213,10 +238,8 @@ class FrenchNumbersToWords {
         get the proper unit, switch the order of array because units are ordered in ASC
         but we are converting the number groups in DESC order
         */
-        let g = this.groups[(this.numberParts.length - (groupIndex + 1))][suffix];
+        let g = this.groups[actualIndex][suffix];
         return g;
     }
 }
-// const x = new FrenchNumbersToWords("fr");
-// console.log(x.convert(12345).fullText);
 exports.default = FrenchNumbersToWords;
