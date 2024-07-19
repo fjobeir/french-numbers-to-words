@@ -12,7 +12,7 @@ This package converts numbers to their written forms in French language
 
 ```javascript
   const numberToWords = new FrenchNumbersToWords('fr'); // fr OR be
-  numberToWords.conver(12345)
+  numberToWords.convert(12345)
   // The result is an object like this
   {
     parts: [
