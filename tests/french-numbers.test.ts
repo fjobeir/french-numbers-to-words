@@ -135,6 +135,49 @@ describe("French numbers to words converter", () => {
       "neuf-milliards-un"
     );
   });
+  test("Converts numbers with trillions", () => {
+    expect(numberToWords.convert(1000000000000).fullText).toBe("un-billion");
+    expect(numberToWords.convert(1000000000001).fullText).toBe("un-billion-un");
+    expect(numberToWords.convert(2000000000000).fullText).toBe("deux-billions");
+    expect(numberToWords.convert(2000000000001).fullText).toBe(
+      "deux-billions-un"
+    );
+    expect(numberToWords.convert(3000000000000).fullText).toBe(
+      "trois-billions"
+    );
+    expect(numberToWords.convert(3000000000001).fullText).toBe(
+      "trois-billions-un"
+    );
+    expect(numberToWords.convert(4000000000000).fullText).toBe(
+      "quatre-billions"
+    );
+    expect(numberToWords.convert(4000000000001).fullText).toBe(
+      "quatre-billions-un"
+    );
+    expect(numberToWords.convert(5000000000000).fullText).toBe("cinq-billions");
+    expect(numberToWords.convert(5000000000001).fullText).toBe(
+      "cinq-billions-un"
+    );
+    expect(numberToWords.convert(6000000000000).fullText).toBe("six-billions");
+    expect(numberToWords.convert(6000000000001).fullText).toBe(
+      "six-billions-un"
+    );
+    expect(numberToWords.convert(7000000000000).fullText).toBe("sept-billions");
+    expect(numberToWords.convert(7000000000001).fullText).toBe(
+      "sept-billions-un"
+    );
+    expect(numberToWords.convert(8000000000000).fullText).toBe("huit-billions");
+    expect(numberToWords.convert(8000000000001).fullText).toBe(
+      "huit-billions-un"
+    );
+    expect(numberToWords.convert(9000000000000).fullText).toBe("neuf-billions");
+    expect(numberToWords.convert(9000000000001).fullText).toBe(
+      "neuf-billions-un"
+    );
+    expect(numberToWords.convert(459554768223001).fullText).toBe(
+      "quatre-cent-cinquante-neuf-billions-cinq-cent-cinquante-quatre-milliards-sept-cent-soixante-huit-millions-deux-cent-vingt-trois-mille-un"
+    );
+  });
   test("Mix complex numbers", () => {
     expect(numberToWords.convert(1234567890).fullText).toBe(
       "un-milliard-deux-cent-trente-quatre-millions-cinq-cent-soixante-sept-mille-huit-cent-quatre-vingt-dix"

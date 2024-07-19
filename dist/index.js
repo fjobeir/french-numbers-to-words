@@ -71,6 +71,10 @@ class FrenchNumbersToWords {
                 single: "milliard",
                 plural: "milliards",
             },
+            {
+                single: "billion",
+                plural: "billions",
+            },
         ];
         this.french = french;
     }

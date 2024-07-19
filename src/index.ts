@@ -89,6 +89,10 @@ class FrenchNumbersToWords {
       single: "milliard",
       plural: "milliards",
     },
+    {
+      single: "billion",
+      plural: "billions",
+    },
   ];
 
   // We need the number and to define which version of French we are using
