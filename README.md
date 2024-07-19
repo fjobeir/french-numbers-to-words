@@ -11,7 +11,7 @@ This package converts numbers to their written forms in French language
 ### Usage
 
 ```javascript
-  const numberToWords = new FrenchNumbersToWords('fr');
+  const numberToWords = new FrenchNumbersToWords('fr'); // fr OR be
   numberToWords.conver(12345)
   // The result is an object like this
   {
@@ -19,6 +19,6 @@ This package converts numbers to their written forms in French language
       { number: 12, text: 'douze', unit: 'mille' },
       { number: 345, text: 'trois-cent-quarante-cinq', unit: '' }
     ],
-    fullText: 'douze-mille trois-cent-quarante-cinq'
+    fullText: 'douze-mille-trois-cent-quarante-cinq'
   }
 ```
