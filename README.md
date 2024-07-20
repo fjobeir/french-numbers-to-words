@@ -11,6 +11,7 @@ This package converts numbers to their written forms in French language. Version
 ### Usage
 
 ```javascript
+  import FrenchNumbersToWords from 'french-numbers-to-words';
   const numberToWords = new FrenchNumbersToWords('fr'); // 'fr' for French or 'be' for Belgian French
   numberToWords.convert(12345)
   // The result is an object like this
