@@ -138,7 +138,7 @@ class FrenchNumbersToWords {
     this.result.parts = [];
     // we will split the number to groups
     // each group has three digits. Ex: 12345 will have two groups: 12 (for thousands) and 345
-    this.numberParts = this.number.toLocaleString().split(",").map(Number);
+    this.numberParts = this.number.toLocaleString('en').split(",").map(Number);
     let n: number, full: ResultPart;
     for (let j = 0; j < this.numberParts.length; j++) {
       n = this.numberParts[j];
